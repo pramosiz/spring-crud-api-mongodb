@@ -1,1 +1,4 @@
-# spring-crud-api-mongodb
+Spring boot application with this tecnologies:
+
+- MongoDB
+- Rest
