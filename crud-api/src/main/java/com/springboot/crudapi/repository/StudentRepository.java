@@ -2,7 +2,6 @@ package com.springboot.crudapi.repository;
 
 import java.util.List;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -10,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.springboot.crudapi.entity.Student;
 
 @Repository
-public interface StudentRepository extends MongoRepository<Student, ObjectId> {
+public interface StudentRepository extends MongoRepository<Student, String> {
 	
 	List<Student> findByName(String name);
 	

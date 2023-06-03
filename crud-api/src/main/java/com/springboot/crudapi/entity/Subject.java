@@ -1,23 +1,23 @@
 package com.springboot.crudapi.entity;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @SuperBuilder
 @Document(collection = "subject")
 public class Subject {
 
 	@Id
-	@Field("_id")
-	private ObjectId id;
+	private String id;
 	
 	@Field(name = "subject")
 	private String subjectName;

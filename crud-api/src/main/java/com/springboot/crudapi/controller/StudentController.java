@@ -18,7 +18,7 @@ import com.springboot.crudapi.entity.Student;
 import com.springboot.crudapi.service.StudentService;
 
 @RestController
-@RequestMapping("/api/student")
+@RequestMapping("/student")
 public class StudentController {
 
 	@Autowired
@@ -34,7 +34,7 @@ public class StudentController {
 		return studentService.getStudentById(id);
 	}
 	
-	@GetMapping("/all")
+	@GetMapping
 	public List<Student> getAllStudents() {
 		return studentService.getAllStudents();
 	}

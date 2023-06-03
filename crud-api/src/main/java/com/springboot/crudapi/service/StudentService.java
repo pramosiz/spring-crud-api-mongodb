@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -61,7 +60,7 @@ public class StudentService {
 	}
 
 	public Student getStudentById(String id) {
-		Optional<Student> student = studentRepository.findById(new ObjectId(id));
+		Optional<Student> student = studentRepository.findById(id);
 		if(student.isPresent()) {
 			return student.get();
 		}
@@ -111,7 +110,7 @@ public class StudentService {
 		if(student == null) {
 			result = "Student not found";
 		} else {
-			studentRepository.deleteById(new ObjectId(id));
+			studentRepository.deleteById(id);
 			result = "Student deleted";
 		}
 		return result;
