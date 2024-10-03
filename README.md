@@ -1,4 +1,9 @@
-Spring boot application with this tecnologies:
+Spring boot App with this technologies:
 
-- MongoDB
+- Layered Architecture
+- Maven
+- Functional Programming
 - Rest
+- DTO
+- MongoDB
+- MongoRepository
