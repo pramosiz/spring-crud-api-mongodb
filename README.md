@@ -1,6 +1,7 @@
-Spring boot App with this technologies:
+# Spring boot RESTful Servlet App with this technologies:
 
-- Layered Architecture
+- `Layered` Architecture
+- `Docker`: Docker Network, Docker Compose 
 - Maven
 - Functional Programming
 - Rest

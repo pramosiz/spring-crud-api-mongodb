@@ -1,3 +1,3 @@
-/target/
-mvnw
-mvnw.cmd
+/business-domain/target/
+/business-domain/mvnw
+/business-domain/mvnw.cmd
