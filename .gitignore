@@ -1,3 +1,4 @@
 /business-domain/target/
 /business-domain/mvnw
 /business-domain/mvnw.cmd
+/infrastructure/jenkins/jenkins_home/
