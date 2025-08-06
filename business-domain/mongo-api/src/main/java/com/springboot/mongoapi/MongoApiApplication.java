@@ -2,12 +2,8 @@ package com.springboot.mongoapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @SpringBootApplication
-@EnableMongoRepositories("com.springboot.crudapi.repository")
-@ComponentScan("com.springboot.crudapi.*")
 public class MongoApiApplication {
 
 	public static void main(String[] args) {

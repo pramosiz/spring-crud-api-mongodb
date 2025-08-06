@@ -11,6 +11,4 @@
  Java Version: ${info.app.java.source} - Enconding: ${info.app.encoding}
  Maven Version: ${info.app.maven.source}
  SpringBoot Version: ${spring-boot.version} | ${spring-boot.formatted-version}
- Flyway Path: ${spring.flyway.locations}
- Database: ${spring.datasource.url} | Schema: ${spring.jpa.properties.hibernate.default_schema}
  Server Port: ${server.port}
