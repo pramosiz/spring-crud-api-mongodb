@@ -1,4 +1,4 @@
-package com.springboot.crudapi.entity;
+package com.springboot.mongoapi.entity;
 
 import java.util.List;
 
@@ -22,30 +22,30 @@ public class Student {
 
 	@Id
 	private String id;
-	
+
 	private String name;
-	
-	@Field(name = "mail")				// Name when read
-	private String email;				// Name when create
-	
+
+	@Field(name = "mail") // Name when read
+	private String email; // Name when create
+
 	@DBRef
 	private Department department;
 
 	@DBRef
 	private List<Subject> subjects;
-	
-	@Transient							// Transient no serializa el atributo
+
+	@Transient // Transient no serializa el atributo
 	private double percentage;
-	
+
 	public double getPercentage() {
-		if((this.subjects != null) && (!this.subjects.isEmpty())) {
+		if ((this.subjects != null) && (!this.subjects.isEmpty())) {
 			double total = 0;
-			for(Subject subject : this.subjects) {
+			for (Subject subject : this.subjects) {
 				total += subject.getMarksObtained();
 			}
-			return total/subjects.size();
+			return total / subjects.size();
 		}
 		return 0.0;
 	}
-	
+
 }

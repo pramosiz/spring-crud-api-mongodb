@@ -1,4 +1,4 @@
-package com.springboot.crudapi.dto;
+package com.springboot.mongoapi.dto;
 
 import java.util.List;
 
@@ -7,16 +7,16 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class StudentDTO {					// JSON field's names
+public class StudentDTO { // JSON field's names
 
-	private String id;					
-	
+	private String id;
+
 	private String name;
-	
+
 	private String mail;
-	
+
 	private DepartmentDTO department;
 
 	private List<SubjectDTO> subjects;
-	
+
 }

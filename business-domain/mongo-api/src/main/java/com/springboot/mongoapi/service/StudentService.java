@@ -1,4 +1,4 @@
-package com.springboot.crudapi.service;
+package com.springboot.mongoapi.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,28 +10,28 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.springboot.crudapi.dto.StudentDTO;
-import com.springboot.crudapi.entity.Department;
-import com.springboot.crudapi.entity.Student;
-import com.springboot.crudapi.entity.Subject;
-import com.springboot.crudapi.repository.DepartmentRepository;
-import com.springboot.crudapi.repository.StudentRepository;
-import com.springboot.crudapi.repository.SubjectRepository;
+import com.springboot.mongoapi.dto.StudentDTO;
+import com.springboot.mongoapi.entity.Department;
+import com.springboot.mongoapi.entity.Student;
+import com.springboot.mongoapi.entity.Subject;
+import com.springboot.mongoapi.repository.DepartmentRepository;
+import com.springboot.mongoapi.repository.StudentRepository;
+import com.springboot.mongoapi.repository.SubjectRepository;
 
 @Service
 public class StudentService {
 
 	@Autowired
 	StudentRepository studentRepository;
-	
+
 	@Autowired
 	DepartmentRepository departmentRepository;
-	
+
 	@Autowired
 	SubjectRepository subjectRepository;
-	
-	public Student createStudent(StudentDTO studentDto){
-		
+
+	public Student createStudent(StudentDTO studentDto) {
+
 		Department department = Department.builder()
 				.departmentName(studentDto.getDepartment().getDepartment_name())
 				.location(studentDto.getDepartment().getLocation())
@@ -50,21 +50,20 @@ public class StudentService {
 				.department(department)
 				.subjects(subjects)
 				.build();
-		if(student.getDepartment() != null) {
+		if (student.getDepartment() != null) {
 			departmentRepository.save(student.getDepartment());
 		}
-		if((student.getSubjects() != null) && !student.getSubjects().isEmpty()) {
-			subjectRepository.saveAll(student.getSubjects());		
+		if ((student.getSubjects() != null) && !student.getSubjects().isEmpty()) {
+			subjectRepository.saveAll(student.getSubjects());
 		}
 		return studentRepository.save(student);
 	}
 
 	public Student getStudentById(String id) {
 		Optional<Student> student = studentRepository.findById(id);
-		if(student.isPresent()) {
+		if (student.isPresent()) {
 			return student.get();
-		}
-		else {
+		} else {
 			return null;
 		}
 	}
@@ -95,11 +94,11 @@ public class StudentService {
 				.department(department)
 				.subjects(subjects)
 				.build();
-		if(student.getDepartment() != null) {
+		if (student.getDepartment() != null) {
 			departmentRepository.save(student.getDepartment());
 		}
-		if((student.getSubjects() != null) && !student.getSubjects().isEmpty()) {
-			subjectRepository.saveAll(student.getSubjects());		
+		if ((student.getSubjects() != null) && !student.getSubjects().isEmpty()) {
+			subjectRepository.saveAll(student.getSubjects());
 		}
 		return studentRepository.save(student);
 	}
@@ -107,7 +106,7 @@ public class StudentService {
 	public String deleteStudent(String id) {
 		String result;
 		Student student = getStudentById(id);
-		if(student == null) {
+		if (student == null) {
 			result = "Student not found";
 		} else {
 			studentRepository.deleteById(id);
@@ -130,7 +129,7 @@ public class StudentService {
 
 	public List<Student> getAllWithPagination(int pageNo, int pageSize) {
 		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
-		
+
 		return studentRepository.findAll(pageable).getContent();
 	}
 
@@ -139,13 +138,13 @@ public class StudentService {
 		return studentRepository.findAll(sort);
 	}
 
-//	public List<Student> getStudentsByDepartmentName(String deptName) {
-//		return studentRepository.findByDepartmentDepartmentName(deptName);
-//	}
-//
-//	public List<Student> getStudentsBySubjectName(String subName) {
-//		return studentRepository.findBySubjectsSubjectName(subName);
-//	}
+	// public List<Student> getStudentsByDepartmentName(String deptName) {
+	// return studentRepository.findByDepartmentDepartmentName(deptName);
+	// }
+	//
+	// public List<Student> getStudentsBySubjectName(String subName) {
+	// return studentRepository.findBySubjectsSubjectName(subName);
+	// }
 
 	public List<Student> getStudentsByEmailDomain(String email) {
 		return studentRepository.findByEmailIsLike(email);
@@ -155,6 +154,4 @@ public class StudentService {
 		return studentRepository.findByNameStartsWith(name);
 	}
 
-	
-	
 }

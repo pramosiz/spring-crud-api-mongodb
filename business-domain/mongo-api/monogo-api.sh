@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Crear una red Docker si no existe
-docker network create crud-api-app || true
+docker network create mongo-api-app || true
 
 # Run the Docker container for bike-service
 # Uncomment for Swagger UI -p 8003:8003

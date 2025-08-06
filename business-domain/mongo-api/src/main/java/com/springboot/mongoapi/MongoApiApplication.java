@@ -1,4 +1,4 @@
-package com.springboot.crudapi;
+package com.springboot.mongoapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,10 +8,10 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @SpringBootApplication
 @EnableMongoRepositories("com.springboot.crudapi.repository")
 @ComponentScan("com.springboot.crudapi.*")
-public class CrudApiApplication {
+public class MongoApiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CrudApiApplication.class, args);
+		SpringApplication.run(MongoApiApplication.class, args);
 	}
 
 }

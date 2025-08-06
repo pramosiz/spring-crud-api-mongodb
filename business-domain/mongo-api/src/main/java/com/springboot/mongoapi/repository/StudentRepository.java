@@ -1,4 +1,4 @@
-package com.springboot.crudapi.repository;
+package com.springboot.mongoapi.repository;
 
 import java.util.List;
 
@@ -6,26 +6,27 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.springboot.crudapi.entity.Student;
+import com.springboot.mongoapi.entity.Student;
 
 @Repository
 public interface StudentRepository extends MongoRepository<Student, String> {
-	
+
 	List<Student> findByName(String name);
-	
+
 	@Query("{ \"name\" : \"?0\" }")
 	List<Student> findByNombre(String name);
-	
+
 	List<Student> findByNameAndEmail(String name, String email);
-	
+
 	List<Student> findByNameOrEmail(String name, String email);
-	
-//  It doesn't work because Department and Subjects are different documents right now
-//	List<Student> findByDepartmentDepartmentName(String deptName);
-//	
-//	List<Student> findBySubjectsSubjectName(String subName);
-	
+
+	// It doesn't work because Department and Subjects are different documents right
+	// now
+	// List<Student> findByDepartmentDepartmentName(String deptName);
+	//
+	// List<Student> findBySubjectsSubjectName(String subName);
+
 	List<Student> findByEmailIsLike(String email);
-	
+
 	List<Student> findByNameStartsWith(String name);
 }

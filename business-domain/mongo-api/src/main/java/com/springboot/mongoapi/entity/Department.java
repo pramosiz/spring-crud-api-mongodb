@@ -1,4 +1,4 @@
-package com.springboot.crudapi.entity;
+package com.springboot.mongoapi.entity;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -13,16 +13,16 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-@Document(collection = "subject")
-public class Subject {
+@Document(collection = "department")
+public class Department {
 
 	@Id
 	private String id;
-	
-	@Field(name = "subject")
-	private String subjectName;
-	
-	@Field(name = "marks_obtained")
-	private int marksObtained;
-	
+
+	@Field(name = "department_name")
+	private String departmentName;
+
+	@Field(name = "location")
+	private String location;
+
 }
