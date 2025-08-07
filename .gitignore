@@ -1,3 +1,4 @@
 /business-domain/mongo-api/target/
 /business-domain/mongo-api/mvnw
 /infrastructure/jenkins/jenkins_home/
+/.idea/
