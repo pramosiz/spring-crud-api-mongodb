@@ -31,6 +31,12 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<!-- Libreria para pruebas unitarias -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
 		<!-- Dependency for Log4j2 logging -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -68,6 +74,18 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- Proporciona las funcionalidades principales de Mockito para crear mocks y stubs de
+		pruebas-->
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
