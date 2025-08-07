@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.springboot.mongoapi.dto.NewStudentDTO;
 import com.springboot.mongoapi.dto.StudentDTO;
 import com.springboot.mongoapi.entity.Student;
 import com.springboot.mongoapi.service.StudentService;
@@ -34,7 +35,7 @@ public class StudentController {
 	@Operation(summary = "Save new Student", description = "Service to save new Student", responses = {
 			@ApiResponse(responseCode = "201", description = "Student saved"),
 			@ApiResponse(responseCode = "400", description = "Bad request for save Student") })
-	public ResponseEntity<Student> createStudent(@RequestBody StudentDTO student) {
+	public ResponseEntity<Student> createStudent(@RequestBody NewStudentDTO student) {
 		return ResponseEntity.ok(studentService.createStudent(student));
 	}
 

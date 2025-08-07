@@ -11,11 +11,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class StudentDTO {
+public class NewStudentDTO {
 
-	private String id;
 	private String name;
 	private String mail;
-	private DepartmentDTO department;
-	private List<SubjectDTO> subjects;
+	private NewDepartmentDTO newDepartment;
+	private List<NewSubjectDTO> newSubjects;
 }

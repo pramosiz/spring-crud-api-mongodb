@@ -1,7 +1,5 @@
 package com.springboot.mongoapi.dto;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,11 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class StudentDTO {
+public class NewSubjectDTO {
 
-	private String id;
-	private String name;
-	private String mail;
-	private DepartmentDTO department;
-	private List<SubjectDTO> subjects;
+	private String subject;
+	private int marks_obtained;
 }

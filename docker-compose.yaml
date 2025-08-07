@@ -1,5 +1,25 @@
 services:
 
+  mongo-api:
+    build:
+      context: business-domain/mongo-api/.
+      dockerfile: Dockerfile
+    image: mongo-api:v1.0
+    container_name: mongo-api
+    ports:
+      - "8010:8010"
+    environment:
+      - MNG_DB_URL=mongodb
+      - MNG_DB_PORT=27017
+      - MNG_DB_COLLECTION=test
+      - MNG_DB_USER=admin
+      - MNG_DB_PASSWORD=admin
+      - MNG_DB_AUTH_DB=admin
+    depends_on:
+      - mongodb
+    networks:
+      - mongo-api
+
   mongodb:
     image: mongodb/mongodb-community-server:6.0.10-ubi9
     container_name: mongodb

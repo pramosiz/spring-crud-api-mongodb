@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.springboot.mongoapi.dto.NewStudentDTO;
 import com.springboot.mongoapi.dto.StudentDTO;
 import com.springboot.mongoapi.entity.Department;
 import com.springboot.mongoapi.entity.Student;
@@ -18,44 +18,47 @@ import com.springboot.mongoapi.repository.DepartmentRepository;
 import com.springboot.mongoapi.repository.StudentRepository;
 import com.springboot.mongoapi.repository.SubjectRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class StudentService {
 
-	@Autowired
-	StudentRepository studentRepository;
+	private final StudentRepository studentRepository;
+	private final DepartmentRepository departmentRepository;
+	private final SubjectRepository subjectRepository;
 
-	@Autowired
-	DepartmentRepository departmentRepository;
+	public Student createStudent(NewStudentDTO studentDTO) {
 
-	@Autowired
-	SubjectRepository subjectRepository;
+		// Buscar o crear Department
+		Department department = departmentRepository
+				.findByDepartmentName(studentDTO.getNewDepartment().getDepartment_name())
+				.orElseGet(() -> departmentRepository.save(
+						Department.builder()
+								.departmentName(studentDTO.getNewDepartment().getDepartment_name())
+								.location(studentDTO.getNewDepartment().getLocation())
+								.build()));
 
-	public Student createStudent(StudentDTO studentDto) {
-
-		Department department = Department.builder()
-				.departmentName(studentDto.getDepartment().getDepartment_name())
-				.location(studentDto.getDepartment().getLocation())
-				.build();
+		// Buscar o crear Subjects
 		List<Subject> subjects = new ArrayList<>();
-		studentDto.getSubjects().stream().forEach(subjectIterator -> {
-			Subject subject = Subject.builder()
-					.subjectName(subjectIterator.getSubject())
-					.marksObtained(subjectIterator.getMarks_obtained())
-					.build();
+		studentDTO.getNewSubjects().forEach(subjectDTO -> {
+			Subject subject = subjectRepository
+					.findBySubjectName(subjectDTO.getSubject())
+					.orElseGet(() -> subjectRepository.save(
+							Subject.builder()
+									.subjectName(subjectDTO.getSubject())
+									.marksObtained(subjectDTO.getMarks_obtained())
+									.build()));
 			subjects.add(subject);
 		});
+
 		Student student = Student.builder()
-				.name(studentDto.getName())
-				.email(studentDto.getMail())
+				.name(studentDTO.getName())
+				.email(studentDTO.getMail())
 				.department(department)
 				.subjects(subjects)
 				.build();
-		if (student.getDepartment() != null) {
-			departmentRepository.save(student.getDepartment());
-		}
-		if ((student.getSubjects() != null) && !student.getSubjects().isEmpty()) {
-			subjectRepository.saveAll(student.getSubjects());
-		}
+
 		return studentRepository.save(student);
 	}
 

@@ -1,16 +1,17 @@
 package com.springboot.mongoapi.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-public class SubjectDTO { // JSON field's names
+@NoArgsConstructor
+@Builder
+public class SubjectDTO {
 
 	private String id;
-
 	private String subject;
-
 	private int marks_obtained;
-
 }
