@@ -2,23 +2,13 @@ pipeline {
     agent any
 
     environment {
-        POM = readMavenPom(file: 'business-domain/mongo-api/pom.xml')
+        MODULE_PATH = 'business-domain/mongo-api/pom.xml'
+        POM = readMavenPom(file: "${MODULE_PATH}")
         DOCKER_IMAGE_NAME = POM.getName()
         DOCKER_IMAGE_VERSION = POM.getVersion()
     }
 
     stages {
-
-        stage('Read pom.xml') {
-            steps {
-                sh '''#!/bin/bash
-                    echo '*******************'
-                    echo 'Reading pom.xml ...'
-                    echo '*******************'
-                    '''
-                echo "Building ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION}"
-            }
-        }
 
         stage('Environment check') {
 			steps {
@@ -43,6 +33,30 @@ pipeline {
 					echo "----- MAVEN VERSION"
 					mvn -version
 					 ''' 
+			}
+		}
+
+        stage ('Build') {
+			steps {
+                sh  '''#!/bin/bash
+                    echo '*******************'
+                    echo 'Building...'
+                    echo '*******************'
+                '''
+                echo "Building ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION}"
+				sh "mvn -f ${MODULE_PATH} clean install -DskipTests"
+			}
+		}
+
+		stage('Test') {
+			steps {
+                sh  '''#!/bin/bash
+                    echo '*******************'
+                    echo 'Testing...'
+                    echo '*******************'
+                '''
+				echo "Testing ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION}"
+				sh "mvn -f ${MODULE_PATH} test"
 			}
 		}
     }
