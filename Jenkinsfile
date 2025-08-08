@@ -9,7 +9,7 @@ pipeline {
                 echo 'Reading pom.xml ...'
                 echo '*******************'
                 script {
-                    pom = readMavenPom(file: 'pom.xml')
+                    pom = readMavenPom(file: 'business-domain/mongo-api/pom.xml')
                     env.DOCKER_IMAGE_NAME = pom.getName()
                     env.DOCKER_IMAGE_VERSION = pom.getVersion()
                 }
