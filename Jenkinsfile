@@ -3,10 +3,11 @@ pipeline {
 
     environment {
         MONGO_API_DIR = 'business-domain/mongo-api'
-        MODULE_PATH = '${MONGO_API_DIR}/pom.xml'
-        POM = readMavenPom(file: "${MODULE_PATH}")
-        DOCKER_IMAGE_NAME = POM.getName()
-        DOCKER_IMAGE_VERSION = POM.getVersion()
+        script {
+            def pom = readMavenPom(file: "${MONGO_API_DIR}/pom.xml")
+            env.DOCKER_IMAGE_NAME = pom.getName()
+            env.DOCKER_IMAGE_VERSION = pom.getVersion()
+        }
     }
 
     stages {
