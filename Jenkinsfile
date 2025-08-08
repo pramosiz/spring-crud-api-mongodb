@@ -8,7 +8,7 @@ pipeline {
 
     stages {
 
-        stage('Read Pom') {
+        stage('Read pom.xml') {
             steps {
                 sh '''#!/bin/bash
                     echo '*******************'
@@ -16,7 +16,7 @@ pipeline {
                     echo '*******************'
                 '''
                 script {
-                    env.MODULE_PATH = '${MONGO_API_DIR}/pom.xml'
+                    env.MODULE_PATH = "${MONGO_API_DIR}/pom.xml"
                     def pom = readMavenPom(file: "${MODULE_PATH}")
                     env.DOCKER_IMAGE_NAME = pom.getName()
                     env.DOCKER_IMAGE_VERSION = pom.getVersion()
