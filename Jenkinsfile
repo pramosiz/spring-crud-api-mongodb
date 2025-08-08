@@ -79,6 +79,7 @@ pipeline {
                 echo "Docker image ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION} generated successfully."
             }
         }
+    }
 
     post {
         success {
