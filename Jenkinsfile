@@ -75,24 +75,25 @@ pipeline {
 			}
 		}
 
-        stage('Generate Docker image') {
-            steps {
-                sh  '''#!/bin/bash
-                    echo '************************'
-                    echo 'Generate Docker image...'
-                    echo '************************'
-                '''
-                sh '''
-                    cd ${MONGO_API_DIR}
-                    docker build -t ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION} .
-                    docker tag ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION} ${DOCKER_IMAGE_NAME}:latest
-                    docker save ${DOCKER_IMAGE_NAME}:latest -o ${DOCKER_IMAGE_NAME}-${DOCKER_IMAGE_VERSION}.tar.gz
-                    docker rmi ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION}
-                    docker rmi ${DOCKER_IMAGE_NAME}:latest
-                '''
-                echo "Docker image ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION} generated successfully."
-            }
-        }
+        // TODO PRAMOSI: Fix Docker problem
+        // stage('Generate Docker image') {
+        //     steps {
+        //         sh  '''#!/bin/bash
+        //             echo '************************'
+        //             echo 'Generate Docker image...'
+        //             echo '************************'
+        //         '''
+        //         sh '''
+        //             cd ${MONGO_API_DIR}
+        //             docker build -t ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION} .
+        //             docker tag ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION} ${DOCKER_IMAGE_NAME}:latest
+        //             docker save ${DOCKER_IMAGE_NAME}:latest -o ${DOCKER_IMAGE_NAME}-${DOCKER_IMAGE_VERSION}.tar.gz
+        //             docker rmi ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION}
+        //             docker rmi ${DOCKER_IMAGE_NAME}:latest
+        //         '''
+        //         echo "Docker image ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION} generated successfully."
+        //     }
+        // }
     }
 
     post {
