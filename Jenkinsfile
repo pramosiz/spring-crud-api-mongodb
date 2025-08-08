@@ -1,6 +1,12 @@
 pipeline {
     agent any
 
+    environment {
+        POM = readMavenPom(file: 'business-domain/mongo-api/pom.xml')
+        DOCKER_IMAGE_NAME = POM.getName()
+        DOCKER_IMAGE_VERSION = POM.getVersion()
+    }
+
     stages {
 
         stage('Read pom.xml') {
@@ -10,11 +16,6 @@ pipeline {
                     echo 'Reading pom.xml ...'
                     echo '*******************'
                     '''
-                script {
-                    pom = readMavenPom(file: 'business-domain/mongo-api/pom.xml')
-                    env.DOCKER_IMAGE_NAME = pom.getName()
-                    env.DOCKER_IMAGE_VERSION = pom.getVersion()
-                }
                 echo "Building ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION}"
             }
         }
