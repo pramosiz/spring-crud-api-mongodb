@@ -2,15 +2,28 @@ pipeline {
     agent any
 
     environment {
+        // It can't reference $ variables
         MONGO_API_DIR = 'business-domain/mongo-api'
-        script {
-            def pom = readMavenPom(file: "${MONGO_API_DIR}/pom.xml")
-            env.DOCKER_IMAGE_NAME = pom.getName()
-            env.DOCKER_IMAGE_VERSION = pom.getVersion()
-        }
     }
 
     stages {
+
+        stage('Read Pom') {
+            steps {
+                sh '''#!/bin/bash
+                    echo '*******************'
+                    echo 'Reading pom.xml...'
+                    echo '*******************'
+                '''
+                script {
+                    env.MODULE_PATH = '${MONGO_API_DIR}/pom.xml'
+                    def pom = readMavenPom(file: "${MODULE_PATH}")
+                    env.DOCKER_IMAGE_NAME = pom.getName()
+                    env.DOCKER_IMAGE_VERSION = pom.getVersion()
+                }
+                echo "Building ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION}"
+            }
+        }
 
         stage('Environment check') {
 			steps {
