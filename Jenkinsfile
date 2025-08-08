@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        DOCKER_IMAGE_NAME = ''
+        DOCKER_IMAGE_VERSION = ''
+    }
+
     stages {
 
         stage('Read pom.xml') {
@@ -16,6 +21,26 @@ pipeline {
                 echo "Building ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION}"
             }
         }
+
+        stage('Environment check') {
+			steps {
+				echo '*******************'
+				echo 'Environment check...'
+				echo '*******************'
+				echo '----- All environment variables:'
+				sh   'printenv | sort'
+				echo '----- Jenkinsfile environment variables:'
+				echo "DOCKER_IMAGE_NAME=${DOCKER_IMAGE_NAME}"
+				echo "DOCKER_IMAGE_VERSION=${DOCKER_IMAGE_VERSION}"
+				echo '----- Other checks...'
+				sh   '''#!/bin/bash
+						echo "----- JAVA VERSION"
+						java -version
+						echo "----- MAVEN VERSION"
+						mvn -version
+					 ''' 
+			}
+		}
     }
 
     post {
