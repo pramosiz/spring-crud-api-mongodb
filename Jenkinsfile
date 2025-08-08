@@ -2,7 +2,8 @@ pipeline {
     agent any
 
     environment {
-        MODULE_PATH = 'business-domain/mongo-api/pom.xml'
+        MONGO_API_DIR = 'business-domain/mongo-api'
+        MODULE_PATH = '${MONGO_API_DIR}/pom.xml'
         POM = readMavenPom(file: "${MODULE_PATH}")
         DOCKER_IMAGE_NAME = POM.getName()
         DOCKER_IMAGE_VERSION = POM.getVersion()
@@ -59,7 +60,25 @@ pipeline {
 				sh "mvn -f ${MODULE_PATH} test"
 			}
 		}
-    }
+
+        stage('Generate Docker image') {
+            steps {
+                sh  '''#!/bin/bash
+                    echo '************************'
+                    echo 'Generate Docker image...'
+                    echo '************************'
+                '''
+                sh '''
+                    cd ${MONGO_API_DIR}
+                    docker build -t ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION} .
+                    docker tag ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION} ${DOCKER_IMAGE_NAME}:latest
+                    docker save ${DOCKER_IMAGE_NAME}:latest -o ${DOCKER_IMAGE_NAME}-${DOCKER_IMAGE_VERSION}.tar.gz
+                    docker rmi ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION}
+                    docker rmi ${DOCKER_IMAGE_NAME}:latest
+                '''
+                echo "Docker image ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION} generated successfully."
+            }
+        }
 
     post {
         success {
