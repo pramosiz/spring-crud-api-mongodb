@@ -17,8 +17,8 @@ pipeline {
                     pom = readMavenPom(file: 'business-domain/mongo-api/pom.xml')
                     env.DOCKER_IMAGE_NAME = pom.getName()
                     env.DOCKER_IMAGE_VERSION = pom.getVersion()
+                    echo "Building ${env.DOCKER_IMAGE_NAME}:${env.DOCKER_IMAGE_VERSION}"
                 }
-                echo "Building ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION}"
             }
         }
 
