@@ -4,7 +4,9 @@
 - `Layered` Architecture
 - `Docker`: Docker Network, Docker Compose
 - `Documentation API Rest`: Swagger (OpenApi)
-- `Database`: MongoDB
+- `Database App`: MongoDB
+- `Code Quality`: SonarQube Server
+- `Database SonarQube`: PostgreSQL
 - Maven
 - Functional Programming
 - Rest

@@ -75,6 +75,19 @@ pipeline {
 			}
 		}
 
+        stage('SonarQube Analysis') {
+            steps {
+                sh  '''#!/bin/bash
+                    echo '*********************'
+                    echo 'SonarQube analysis...'
+                    echo '*******************'
+                '''
+                withSonarQubeEnv('SonarQube') {
+                    sh "mvn -f ${MODULE_PATH} sonar:sonar"
+                }
+            }
+        }
+
         // TODO PRAMOSI: Fix Docker problem
         // stage('Generate Docker image') {
         //     steps {
