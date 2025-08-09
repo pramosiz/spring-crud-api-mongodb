@@ -80,9 +80,9 @@ pipeline {
                 sh  '''#!/bin/bash
                     echo '*********************'
                     echo 'SonarQube analysis...'
-                    echo '*******************'
+                    echo '*********************'
                 '''
-                withSonarQubeEnv('SonarQube') {
+                withSonarQubeEnv('sonarqube-test') { // Same name in Manage Jenkins > Configure System
                     sh "mvn -f ${MODULE_PATH} sonar:sonar"
                 }
             }
