@@ -4,6 +4,7 @@ pipeline {
     environment {
         // It can't reference $ variables
         MONGO_API_DIR = 'business-domain/mongo-api'
+        DOCKER_HOST = 'tcp://192.168.86.194:2375' // Host socat
     }
 
     stages {
@@ -88,25 +89,27 @@ pipeline {
             }
         }
 
-        // TODO PRAMOSI: Fix Docker problem
-        // stage('Generate Docker image') {
-        //     steps {
-        //         sh  '''#!/bin/bash
-        //             echo '************************'
-        //             echo 'Generate Docker image...'
-        //             echo '************************'
-        //         '''
-        //         sh '''
-        //             cd ${MONGO_API_DIR}
-        //             docker build -t ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION} .
-        //             docker tag ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION} ${DOCKER_IMAGE_NAME}:latest
-        //             docker save ${DOCKER_IMAGE_NAME}:latest -o ${DOCKER_IMAGE_NAME}-${DOCKER_IMAGE_VERSION}.tar.gz
-        //             docker rmi ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION}
-        //             docker rmi ${DOCKER_IMAGE_NAME}:latest
-        //         '''
-        //         echo "Docker image ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION} generated successfully."
-        //     }
-        // }
+        stage('Generate Docker image') {
+            steps {
+                sh  '''#!/bin/bash
+                    echo '************************'
+                    echo 'Generate Docker image...'
+                    echo '************************'
+                '''
+                script {
+                    env.DOCKER_HOST = "${DOCKER_HOST}"
+                    sh '''#!/bin/bash
+                        cd ${MONGO_API_DIR}
+                        docker build -t ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION} .
+                        docker tag ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION} ${DOCKER_IMAGE_NAME}:latest
+                        docker save ${DOCKER_IMAGE_NAME}:latest -o ${DOCKER_IMAGE_NAME}-${DOCKER_IMAGE_VERSION}.tar.gz
+                        docker rmi ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION}
+                        docker rmi ${DOCKER_IMAGE_NAME}:latest
+                    '''
+                }
+                echo "Docker image ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION} generated successfully."
+            }
+        }
     }
 
     post {
