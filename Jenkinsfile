@@ -102,9 +102,10 @@ pipeline {
                         cd ${MONGO_API_DIR}
                         docker build -t ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION} .
                         docker tag ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION} ${DOCKER_IMAGE_NAME}:latest
-                        docker save ${DOCKER_IMAGE_NAME}:latest -o ${DOCKER_IMAGE_NAME}-${DOCKER_IMAGE_VERSION}.tar.gz
+                        docker save ${DOCKER_IMAGE_NAME}:latest -o ${JENKINS_HOME}/workspace/images/${DOCKER_IMAGE_NAME}-${DOCKER_IMAGE_VERSION}.tar.gz
                         docker rmi ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION}
                         docker rmi ${DOCKER_IMAGE_NAME}:latest
+                        docker image prune -f
                     '''
                 }
                 echo "Docker image ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION} generated successfully."
