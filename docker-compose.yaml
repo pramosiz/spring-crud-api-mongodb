@@ -101,6 +101,19 @@ services:
     networks:
       - mongo-api
 
+  # Prometheus
+  prometheus:
+    image: prom/prometheus:v3.5.0
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    # Must be yml extension and not yaml
+    volumes:
+      - ./infrastructure/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - /Users/pabloramosizquierdo/Desktop/Pablo/Tecnologias/Dockers/Prometheus/data:/prometheus
+    networks:
+      - mongo-api
+
 networks:
   mongo-api:
     driver: bridge

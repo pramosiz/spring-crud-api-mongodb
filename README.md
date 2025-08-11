@@ -7,9 +7,11 @@
 - `Database App`: MongoDB
 - `Code Quality`: SonarQube Server
 - `Database SonarQube`: PostgreSQL
+- `Monitoring`: Prometheus, Grafana
 - Maven
 - Functional Programming
 - Rest
 - DTO
 - MongoRepository
-- Unit Tests
+- Unit Tests (JUnit 5 & Mockito)
+- `Logging`: log4j2
