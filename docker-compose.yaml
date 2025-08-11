@@ -117,6 +117,7 @@ services:
       - mongo-api
 
   # Grafana
+  # https://grafana.com/grafana/dashboards/ -> To import dashboards pre-configured
   grafana:
     image: grafana/grafana:12.2.0-16868078697
     container_name: grafana
