@@ -1,0 +1,13 @@
+groups:
+  - name: example_rules
+    rules:
+      - alert: InstanceDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Instancia {{ $labels.instance }} caída"
+          description: "La instancia {{ $labels.instance }} no responde durante 1 minuto."
+      - record: job:http_requests_total:sum
+        expr: sum(http_server_requests_seconds_count) by (job)
