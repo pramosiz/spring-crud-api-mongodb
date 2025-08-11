@@ -16,6 +16,8 @@ public class SecurityConfig {
         http.authorizeHttpRequests((requests) -> requests
                 // Permite el acceso a TODOS los endpoints de Actuator sin autenticación
                 .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
+                // .requestMatchers("/actuator/**").permitAll()
+                // .requestMatchers("/actuator/**").authenticated()
                 // Para el resto de peticiones, exige que el usuario esté autenticado
                 .anyRequest().authenticated())
                 // Puedes configurar otras cosas como el formulario de login, etc.
