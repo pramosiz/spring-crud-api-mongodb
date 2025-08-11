@@ -117,20 +117,20 @@ services:
       - mongo-api
 
   # Grafana
-  # grafana:
-  #   image: grafana/grafana:12.2.0-16868078697
-  #   container_name: grafana
-  #   ports:
-  #     - "3000:3000"
-  #   environment:
-  #     - GF_SECURITY_ADMIN_USER=admin
-  #     - GF_SECURITY_ADMIN_PASSWORD=admin
-  #   volumes:
-  #     - /Users/pabloramosizquierdo/Desktop/Pablo/Tecnologias/Dockers/Grafana/grafana_data:/var/lib/grafana
-  #   depends_on:
-  #     - prometheus
-  #   networks:
-  #     - mongo-api
+  grafana:
+    image: grafana/grafana:12.2.0-16868078697
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - /Users/pabloramosizquierdo/Desktop/Pablo/Tecnologias/Dockers/Grafana/grafana_data:/var/lib/grafana
+    depends_on:
+      - prometheus
+    networks:
+      - mongo-api
 
 networks:
   mongo-api:
